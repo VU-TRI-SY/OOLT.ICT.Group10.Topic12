@@ -10,12 +10,10 @@ import oop.group10.aio.tsp.TravelingSalesmanProblem;
 
 public class ParticleSwarmOperation extends AlgorithmsOperation {
 	//Reference
-	private TravelingSalesmanProblem problem;
 	
 	public ParticleSwarmOperation(TravelingSalesmanProblem problem) {
 		// TODO Auto-generated constructor stub
-		super();
-		this.problem=problem;
+		super(problem);
 	}
 	//Get the distance between current pos to destination pos
 	public static SwapSeries getDistance(int[] current,int[] destination) {

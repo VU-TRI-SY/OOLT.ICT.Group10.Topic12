@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import oop.group10.aio.optimization.OptimizationForTSP;
-import oop.group10.aio.optimization.ParticleSwarmOptimization;
+import oop.group10.aio.optimization.pso.ParticleSwarmOptimization;
 import oop.group10.aio.tsp.TravelingSalesmanProblem;
 
 public class Controller implements Initializable{
@@ -69,7 +69,7 @@ public class Controller implements Initializable{
 		float progress=(float)current/stopCondition;
 		progressBar.setProgress(progress);
 	}
-	public void startSolving() {
+	public synchronized void startSolving() {
 		Thread t= new Thread(optimization, "Optimization");
 		t.start();
 	}

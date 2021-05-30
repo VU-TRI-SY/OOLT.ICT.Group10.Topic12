@@ -3,7 +3,7 @@ package oop.group10.aio.objects;
 
 import oop.group10.aio.operation.ParticleSwarmOperation;
 import oop.group10.aio.optimization.OptimizationForTSP;
-import oop.group10.aio.optimization.ParticleSwarmOptimization;
+import oop.group10.aio.optimization.pso.ParticleSwarmOptimization;
 import oop.group10.aio.swap.SwapSeries;
 
 public class Particle extends Individual {
