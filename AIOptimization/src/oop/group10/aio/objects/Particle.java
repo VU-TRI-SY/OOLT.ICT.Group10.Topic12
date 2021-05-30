@@ -40,6 +40,7 @@ public class Particle extends Individual {
 		optimization.updateGlobalBest(id);
 		//Change this to change the individual velocity of particles(Initial velocity)
 		velocity=operation.getRandomVelocity();
+		System.out.println(this.toString());
 	}
 	//Update the local best position
 	public void updateLocalBest() {

@@ -2,7 +2,11 @@ package oop.group10.aio.optimization;
 
 import java.util.ArrayList;
 
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import oop.group10.aio.application.Controller;
 import oop.group10.aio.objects.Particle;
 import oop.group10.aio.operation.ParticleSwarmOperation;
 import oop.group10.aio.swap.SwapSeries;
@@ -20,16 +24,17 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 	//Particles
 	private ArrayList<Particle> particles;
 	
-	public ParticleSwarmOptimization(TravelingSalesmanProblem problem) {
-		super(problem);
+	public ParticleSwarmOptimization(TravelingSalesmanProblem problem,Controller controller) {
+		super(problem,controller);
 		//Default value
 		operation=new ParticleSwarmOperation(problem);
 		numberOfParticles=100;
-		alpha=0.5f;
-		beta=0.5f;
+		alpha=0.1f;
+		beta=0.9f;
 	}
 	//Initialize optimization
 	private void init() {
+		currentIteration=0;
 		particles=new ArrayList<Particle>();
 		int i;
 		for(i=0;i<numberOfParticles;i++) {
@@ -41,6 +46,8 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 		globalBestValue=problem.evaluate(globalBest);
 		
 		SwapSeries.maxIndex=getProblem().getNumberOfCities();
+		
+		onActive=true;
 	}
 	//Each particle construct solution
 	private void constructSolution() {
@@ -52,6 +59,7 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 		if(globalBestValue > particles.get(i).getLocalbestvalue()) {
 				globalBest=particles.get(i).cloneTour();
 				globalBestValue=getProblem().evaluate(globalBest);
+				controller.setGlobalBest();
 		}
 	}
 	//System out the solution
@@ -64,8 +72,20 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 		while(!terminatedCondition()) {
 			constructSolution();
 			printSolution();
-			currentIteration++;
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+			}
+			updateData();
+			controller.changeProgress();
+			renderGraphics(controller.getCanvas());
 		}
+		controller.stopProgressBarMotion();
+	}
+	public void updateData() {
+		currentIteration++;
+		
 	}
 	public ParticleSwarmOperation getOperation() {
 		return operation;
@@ -77,8 +97,20 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 		return beta;
 	}
 	@Override
-	public void renderGraphics(Canvas canvas) {
+	public synchronized void renderGraphics(Canvas canvas) {
 		// TODO Auto-generated method stub
-		
+		float[][] map=getProblem().getXoyMap();
+		Platform.runLater(()->{
+			GraphicsContext graphicsContext=canvas.getGraphicsContext2D();
+			graphicsContext.setFill(Color.WHITE);
+			graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			graphicsContext.setStroke(Color.BLUE);
+			int i;
+			for(i=0;i<problem.getNumberOfCities()-1;i++) {
+				graphicsContext.strokeLine(map[0][globalBest[i]], map[1][globalBest[i]], map[0][globalBest[i+1]], map[1][globalBest[i+1]]);
+			}
+			graphicsContext.strokeLine(map[0][globalBest[i]], map[1][globalBest[i]],map[0][globalBest[0]] , map[1][globalBest[0]]);
+			graphicsContext.closePath();
+		});
 	}
 }
