@@ -1,6 +1,8 @@
 package oop.group10.aio.optimization;
 
 
+import java.util.ArrayList;
+
 import javafx.scene.canvas.Canvas;
 import oop.group10.aio.application.Controller;
 import oop.group10.aio.tsp.TravelingSalesmanProblem;
@@ -16,7 +18,7 @@ public abstract class OptimizationForTSP implements Runnable {
 	public OptimizationForTSP(TravelingSalesmanProblem problem,Controller controller) {
 		// TODO Auto-generated constructor stub
 		globalBest=null;
-		numberOfIteration=1000;
+		numberOfIteration=100;
 		this.problem=problem;
 		this.controller=controller;
 		onActive=false;
@@ -33,6 +35,7 @@ public abstract class OptimizationForTSP implements Runnable {
 	public abstract void updateGlobalBest(int i);
 	public abstract void solve();
 	public abstract void renderGraphics(Canvas canvas);
+	public abstract void setOptimizationData(ArrayList<Float> listOfData);
 	public TravelingSalesmanProblem getProblem() {
 		return problem;
 	}
