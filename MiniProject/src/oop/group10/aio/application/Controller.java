@@ -1,14 +1,19 @@
 package oop.group10.aio.application;
 
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -18,6 +23,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import oop.group10.aio.optimization.OptimizationForTSP;
 import oop.group10.aio.optimization.aco.AntColonyOptimization;
 import oop.group10.aio.optimization.pso.ParticleSwarmOptimization;
@@ -31,6 +37,9 @@ public class Controller implements Initializable{
 	TravelingSalesmanProblem problem;
 	@FXML
 	private Button button;
+	
+	@FXML
+    private Button inputButton;
 	
 	@FXML
     private Canvas backgroundCanvas;
@@ -86,7 +95,6 @@ public class Controller implements Initializable{
 		});
 		
 	}
-	
 	//Action that model can use to control view
 	public synchronized void setCurrentSolution(float currentSolution) {
 		Platform.runLater(()->{
@@ -109,6 +117,7 @@ public class Controller implements Initializable{
 			System.out.println("Please choose Optimization!");
 			return;
 		}
+		drawCanvasBackground();
 		Thread t= new Thread(optimization, "Optimization");
 		t.start();
 	}
@@ -140,6 +149,7 @@ public class Controller implements Initializable{
 		float[][] map=problem.getXoyMap();
 		GraphicsContext graphicsContext=backgroundCanvas.getGraphicsContext2D();
 		graphicsContext.setFill(Color.RED);
+		graphicsContext.clearRect(0, 0, backgroundCanvas.getWidth(), backgroundCanvas.getHeight());
 		int i;
 		for(i=0;i<problem.getNumberOfCities();i++) {
 			graphicsContext.fillOval(map[0][i]-7.07, map[1][i]-7.07, 10, 10);
@@ -155,4 +165,25 @@ public class Controller implements Initializable{
 	public void changeToACOSolver() {
 		optimization=new AntColonyOptimization(problem, this);
 	}
+	public void inputDataForProblem(ArrayList<Float> xPos,ArrayList<Float> yPos,int numOfCites) {
+		problem.init(xPos, yPos, numOfCites);
+	}
+	public void switchToInputView() {
+		FXMLLoader loader=new FXMLLoader(getClass().getResource("InputView.fxml"));
+		Parent root=null;
+		try {
+			root=loader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+		}
+		InputController inputController=loader.getController();
+		inputController.putControllerReference(this);
+		
+		Stage newStage=new Stage();
+		newStage.setScene(new Scene(root));
+		newStage.setTitle("Input cities");
+		newStage.show();
+		
+	}
+	
 }

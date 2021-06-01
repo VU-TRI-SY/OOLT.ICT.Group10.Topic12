@@ -25,11 +25,12 @@
       <AnchorPane prefHeight="806.0" prefWidth="241.0" BorderPane.alignment="CENTER">
          <children>
             <TextField fx:id="textField" editable="false" focusTraversable="false" layoutX="82.0" layoutY="306.0" prefHeight="40.0" prefWidth="143.0" />
-            <Label fx:id="label" layoutX="7.0" layoutY="313.0" text="Distance" />
-            <Button fx:id="button" layoutX="64.0" layoutY="23.0" mnemonicParsing="false" onAction="#startSolving" text="Start Visual" />
-            <Button fx:id="stopButton" layoutX="92.0" layoutY="83.0" mnemonicParsing="false" onAction="#stopSolving" text="Stop" />
+            <Label fx:id="label" layoutX="7.0" layoutY="313.0" text="Distance" textFill="#aeb91a" />
+            <Button fx:id="button" layoutX="65.0" layoutY="24.0" mnemonicParsing="false" onAction="#startSolving" prefHeight="70.0" prefWidth="123.0" text="Start Visual" textFill="#001aff" />
+            <Button fx:id="stopButton" layoutX="147.0" layoutY="115.0" mnemonicParsing="false" onAction="#stopSolving" prefHeight="55.0" prefWidth="75.0" text="Stop" textFill="#f80909" />
             <ProgressBar fx:id="progressBar" layoutX="21.0" layoutY="401.0" prefWidth="200.0" progress="0.0" />
-            <ChoiceBox fx:id="choiceBox" layoutX="11.0" layoutY="180.0" prefHeight="39.0" prefWidth="212.0" />
+            <ChoiceBox fx:id="choiceBox" layoutX="12.0" layoutY="188.0" prefHeight="39.0" prefWidth="212.0" />
+            <Button fx:id="inputButton" layoutX="9.0" layoutY="107.0" mnemonicParsing="false" onAction="#switchToInputView" prefHeight="63.0" prefWidth="122.0" text="Input cities" textFill="#0fc950" />
          </children>
       </AnchorPane>
    </right>

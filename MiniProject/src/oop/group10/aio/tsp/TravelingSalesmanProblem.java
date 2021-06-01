@@ -3,19 +3,27 @@ package oop.group10.aio.tsp;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class TravelingSalesmanProblem {
-	private final String path="map.txt";
+	private final String path="map2.txt";
 	private float[][] map;
 	private int numberOfCities;
 	private float[][] xoyMap;
 	public TravelingSalesmanProblem() {
 		// TODO Auto-generated constructor stub
+		init();
+	}
+	public void init() {
 		inputStatistics();
 		loadMap();
-		resizeStatistics();
+		System.out.println("Read complete!");
+	}
+	public void init(ArrayList<Float> xPos,ArrayList<Float> yPos,int numOfCities) {
+		inputStatistics(xPos, yPos, numOfCities);
+		loadMap();
 		System.out.println("Read complete!");
 	}
 	public float evaluate(int[] solution) {
@@ -42,13 +50,13 @@ public class TravelingSalesmanProblem {
 			}
 		}
 	}
-	public void resizeStatistics() {
+	public void inputStatistics(ArrayList<Float> xPos,ArrayList<Float> yPos,int numOfCities) {
+		this.numberOfCities=numOfCities;
+		xoyMap=new float[2][numberOfCities];
 		int i;
 		for(i=0;i<numberOfCities;i++) {
-			xoyMap[0][i]=xoyMap[0][i]/14;
-			xoyMap[1][i]=xoyMap[1][i]/14+50;
-//			xoyMap[0][i]=xoyMap[0][i]*3+400;
-//			xoyMap[1][i]=xoyMap[1][i]*3+200;
+			xoyMap[0][i]=xPos.get(i);
+			xoyMap[1][i]=yPos.get(i);
 		}
 	}
 	public void inputStatistics() {
@@ -63,12 +71,6 @@ public class TravelingSalesmanProblem {
 			xoyMap[1][i]=sc.nextFloat();
 		}
 		sc.close();
-		try {
-			fi.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	public void showStatistics() {
 		// TODO Auto-generated method stub
