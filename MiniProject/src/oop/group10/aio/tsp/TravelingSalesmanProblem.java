@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 
 public class TravelingSalesmanProblem {
-	private final String path="map1.txt";
+	private final String path="map.txt";
 	private float[][] map;
 	private int numberOfCities;
 	private float[][] xoyMap;
@@ -45,10 +45,10 @@ public class TravelingSalesmanProblem {
 	public void resizeStatistics() {
 		int i;
 		for(i=0;i<numberOfCities;i++) {
-//			xoyMap[0][i]=xoyMap[0][i]/14;
-//			xoyMap[1][i]=xoyMap[1][i]/14+50;
-			xoyMap[0][i]=xoyMap[0][i]*3+400;
-			xoyMap[1][i]=xoyMap[1][i]*3+200;
+			xoyMap[0][i]=xoyMap[0][i]/14;
+			xoyMap[1][i]=xoyMap[1][i]/14+50;
+//			xoyMap[0][i]=xoyMap[0][i]*3+400;
+//			xoyMap[1][i]=xoyMap[1][i]*3+200;
 		}
 	}
 	public void inputStatistics() {

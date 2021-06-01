@@ -43,7 +43,7 @@ public class State extends Individual {
 		SimulatedAneallingOptimization o=(SimulatedAneallingOptimization) optimization;
 		float temperature=o.getCurrentTemperature();
 		float loss=operation.getLoss(tour,neighborTour);
-		if(loss<0) tour=neighborTour;
+		if(loss>0) tour=neighborTour;
 		else {
 			if(operation.isAceptableState(operation.calculateProbabity(loss, temperature))) tour=neighborTour;
 		}

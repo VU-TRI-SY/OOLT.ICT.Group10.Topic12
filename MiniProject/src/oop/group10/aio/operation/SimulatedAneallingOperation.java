@@ -34,22 +34,27 @@ public class SimulatedAneallingOperation extends AlgorithmsOperation {
 	}
 	//Get the neighbor of the current state
 	public int[] getRandNeighborState(int[] tour) {
+		int[] cloneTour=tour.clone();
 		int size=tour.length;
-		int randNum=random.nextInt(size-3)+1;
-		int temp=tour[randNum];
-		tour[randNum]=tour[randNum+1];
-		tour[randNum+1]=temp;
-		return tour;
+		int randNum1=random.nextInt(size-2)+1;
+		int randNum2=random.nextInt(size-2)+1;
+		while(randNum2==randNum1) randNum2=random.nextInt(size-2)+1;
+		int temp=cloneTour[randNum1];
+		cloneTour[randNum1]=cloneTour[randNum2];
+		cloneTour[randNum2]=temp;
+		return cloneTour;
 	}
 	//Get the loss between current solution and neighbor solution
 	public float getLoss(int[] current,int[] neighbor) {
 		float currentSolution=problem.evaluate(current);
 		float neighborSolution=problem.evaluate(neighbor);
-		return currentSolution-neighborSolution;
+		float loss=currentSolution-neighborSolution;
+		return loss;
 	}
 	//Probability to accept the neighbor solution
 	public float calculateProbabity(float loss,float temperature) {
-		float probability=(float) Math.exp(-loss/temperature);
+		float probability=(float) Math.exp(loss/temperature);
+		System.out.println("Accept probability: "+probability);
 		return probability;
 	}
 	//Accept the solution of neighbor or not

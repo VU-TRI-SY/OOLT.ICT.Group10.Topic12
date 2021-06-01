@@ -27,7 +27,7 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 		super(problem, controller);
 		// TODO Auto-generated constructor stub
 		operation=new SimulatedAneallingOperation(problem);
-		startTemperature=100;
+		startTemperature=3000;
 	}	
 	
 	//Initialize optimization
@@ -50,7 +50,7 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 			state.constructSolution();
 			printSolution();
 			try {
-				Thread.sleep(500);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 			}
@@ -59,11 +59,15 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 		}
 		stop();
 	}
-	
+	@Override
+	public boolean terminatedCondition() {
+		// TODO Auto-generated method stub
+		return currentTemperature<0.1||onActive==false;
+	}
 	//Update temperature each loop and iteration++
 	private void updateDataAtEndLoop() {
 		currentIteration++;
-		currentTemperature-=1;
+		currentTemperature*=0.99;
 	}
 	
 	
@@ -75,8 +79,7 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 		// TODO Auto-generated method stub
 		if(globalBestValue>state.getTourLength()) {
 			globalBest=state.cloneTour();
-			globalBestValue=state.getTourLength();controller.setGlobalBest();
-			System.out.println("Set");
+			globalBestValue=state.getTourLength();
 		}
 	}
 	private void stop() {
@@ -111,7 +114,7 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 			}
 			graphicsContext.strokeLine(map[0][currentTour[i]], map[1][currentTour[i]],map[0][currentTour[0]] , map[1][currentTour[0]]);
 			graphicsContext.closePath();
-			controller.setGlobalBest();
+			controller.setCurrentSolution(state.getTourLength());
 		});
 		
 	}

@@ -18,7 +18,7 @@ public abstract class OptimizationForTSP implements Runnable {
 	public OptimizationForTSP(TravelingSalesmanProblem problem,Controller controller) {
 		// TODO Auto-generated constructor stub
 		globalBest=null;
-		numberOfIteration=100;
+		numberOfIteration=1000;
 		this.problem=problem;
 		this.controller=controller;
 		onActive=false;

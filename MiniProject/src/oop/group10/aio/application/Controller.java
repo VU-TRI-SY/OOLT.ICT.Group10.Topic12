@@ -88,7 +88,11 @@ public class Controller implements Initializable{
 	}
 	
 	//Action that model can use to control view
-	
+	public synchronized void setCurrentSolution(float currentSolution) {
+		Platform.runLater(()->{
+			textField.setText(""+currentSolution);
+		});
+	}
 	public synchronized void setGlobalBest() {
 		Platform.runLater(()->{
 			textField.setText(""+optimization.getGlobalBestValue());
