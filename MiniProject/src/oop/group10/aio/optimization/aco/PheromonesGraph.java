@@ -5,7 +5,6 @@ public class PheromonesGraph {
 	private float density[][];
 	
 	//Initialize graph
-<<<<<<< HEAD
 	
 	public PheromonesGraph(int numberOfCities) {
 		super();
@@ -30,22 +29,3 @@ public class PheromonesGraph {
 		density[i][j]+=value;
 	}
 }
-=======
-	public void initGraph() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public float getTau(int i,int j) {
-		i=0;j=0;
-		return 0;
-	}
-	
-	public void evaporation(float rho) {
-		
-	}
-	public void addDeposit(int i,int j,float value) {
-		density[i][j]+=value;
-	}
-}
->>>>>>> branch 'master' of https://github.com/VU-TRI-SY/OOLT.ICT.Group10.Topic12.git
