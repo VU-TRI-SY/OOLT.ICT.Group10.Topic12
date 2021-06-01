@@ -23,19 +23,18 @@ public class ParticleSwarmOperation extends AlgorithmsOperation {
 		int i,j;
 		for(i=0;i<destination.length;i++) {
 			for(j=0;j<currentClone.length;j++) {
-				if(i==j&&current[j]!=destination[i]) continue;
-				if(i==j&&current[j]==destination[i]) break;
+				if(i==j) continue;
 				if(currentClone[j]==destination[i]) {
 					swapSeries.addSwapOperator(new SwapOperator(i, j));
 					int temp=currentClone[i];
-					currentClone[i]=currentClone[j];
+					current[i]=currentClone[j];
 					currentClone[j]=temp;
 					break;
 				}
 			}
 		}
 		
-		if(swapSeries.getOperatorsList().isEmpty()) swapSeries.addSwapOperator(new SwapOperator(0, 0));
+		if(swapSeries.getOperatorsList().isEmpty()) swapSeries.addSwapOperator(new SwapOperator(1, 1));
 		return swapSeries;
 	}
 	//Next destination of particles
@@ -55,8 +54,8 @@ public class ParticleSwarmOperation extends AlgorithmsOperation {
 	}
 	//Accept the importance of alpha or beta
 	private boolean acceptImportance(float probability) {
-		float randProb= nextFloat(0.0f, 1.0f);
-		if(probability<randProb) return false;
+		float num= nextFloat(0.0f, 1.0f);
+		if(probability<num) return false;
 		else return true;
 	}
 	//Return the new velocity for particle
@@ -77,9 +76,7 @@ public class ParticleSwarmOperation extends AlgorithmsOperation {
 		int i;
 		for(i=0;i<numCities;i++) listNodes.add(i);
 		int[] list=new int[numCities];
-		list[0]=0;
-		listNodes.remove(0);
-		i=1;
+		i=0;
 		while(!listNodes.isEmpty()) {
 			int randNum=random.nextInt(listNodes.size());
 			list[i]=listNodes.get(randNum);
@@ -97,7 +94,6 @@ public class ParticleSwarmOperation extends AlgorithmsOperation {
 		SwapSeries swapSeries=getDistance(fpos, npos);
 		return swapSeries;
 	}
-	
 	//Print velocity
 	public String getVelocityString(SwapSeries velocity) {
 		StringBuilder stringBuilder=new StringBuilder();

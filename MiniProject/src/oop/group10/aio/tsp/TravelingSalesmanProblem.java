@@ -87,4 +87,7 @@ public class TravelingSalesmanProblem {
 	public float[][] getXoyMap() {
 		return xoyMap;
 	}
+	public float getDistance(int i,int j) {
+		return map[i][j];
+	}
 }
