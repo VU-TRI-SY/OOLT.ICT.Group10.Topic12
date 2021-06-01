@@ -19,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import oop.group10.aio.optimization.OptimizationForTSP;
+import oop.group10.aio.optimization.aco.AntColonyOptimization;
 import oop.group10.aio.optimization.pso.ParticleSwarmOptimization;
 import oop.group10.aio.optimization.sao.SimulatedAneallingOptimization;
 import oop.group10.aio.tsp.TravelingSalesmanProblem;
@@ -62,6 +63,7 @@ public class Controller implements Initializable{
 		drawCanvasBackground();
 		choiceBox.getItems().add("Particle Swarm Optimization");
 		choiceBox.getItems().add("Simulated Anealling Optimization");
+		choiceBox.getItems().add("Ant Colony Optimization");
 		choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
@@ -74,6 +76,10 @@ public class Controller implements Initializable{
 				if(newValue.intValue()==1) {
 					changeToSAOSolver();
 					System.out.println("Change to SAO Solver!");
+				}
+				if(newValue.intValue()==2) {
+					changeToACOSolver();
+					System.out.println("Change to ACO Solver!");
 				}
 			}
 			
@@ -141,5 +147,8 @@ public class Controller implements Initializable{
 	}
 	public void changeToSAOSolver() {
 		optimization=new SimulatedAneallingOptimization(problem, this);
+	}
+	public void changeToACOSolver() {
+		optimization=new AntColonyOptimization(problem, this);
 	}
 }
