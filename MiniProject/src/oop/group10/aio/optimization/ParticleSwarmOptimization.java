@@ -1,4 +1,4 @@
-package oop.group10.aio.optimization.pso;
+package oop.group10.aio.optimization;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,6 @@ import javafx.scene.paint.Color;
 import oop.group10.aio.application.Controller;
 import oop.group10.aio.objects.Particle;
 import oop.group10.aio.operation.ParticleSwarmOperation;
-import oop.group10.aio.optimization.OptimizationForTSP;
 import oop.group10.aio.swap.SwapSeries;
 import oop.group10.aio.tsp.TravelingSalesmanProblem;
 
@@ -33,26 +32,6 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 		alpha=0.1f;
 		beta=0.9f;
 	}
-	
-	@Override
-	public void solve() {
-		init();
-		while(!terminatedCondition()) {
-			constructSolution();
-			printSolution();
-			//Slow down the process
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-			}
-			render();
-			updateDataAtEndLoop();
-		}
-		stop();
-	}
-	
-	
 	//Initialize optimization
 	private void init() {
 		currentIteration=0;
@@ -87,21 +66,36 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 	public void printSolution() {
 		System.out.println("Global best: "+globalBestValue);
 	}
-	
-	//Stop motion
-	private void stop() {
+	@Override
+	public void solve() {
+		init();
+		while(!terminatedCondition()) {
+			constructSolution();
+			printSolution();
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+			}
+			updateData();
+			controller.changeProgress();
+			renderGraphics(controller.getCanvas());
+		}
 		controller.stopProgressBarMotion();
 	}
-	//Render graphics each loop
-	private void render() {
-		controller.changeProgress();
-		renderGraphics(controller.getCanvas());
+	public void updateData() {
+		currentIteration++;
+		
 	}
-	//iteration++ each loop
-	private void updateDataAtEndLoop() {
-		currentIteration++;	
+	public ParticleSwarmOperation getOperation() {
+		return operation;
 	}
-	
+	public float getAlpha() {
+		return alpha;
+	}
+	public float getBeta() {
+		return beta;
+	}
 	@Override
 	public synchronized void renderGraphics(Canvas canvas) {
 		// TODO Auto-generated method stub
@@ -119,15 +113,4 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 			graphicsContext.closePath();
 		});
 	}
-	
-	public ParticleSwarmOperation getOperation() {
-		return operation;
-	}
-	public float getAlpha() {
-		return alpha;
-	}
-	public float getBeta() {
-		return beta;
-	}
-	
 }
