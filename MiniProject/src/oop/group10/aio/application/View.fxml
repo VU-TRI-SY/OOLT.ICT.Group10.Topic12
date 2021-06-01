@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.group10.aio.application.Controller">
+   <left>
+      <StackPane BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imageView" fitHeight="500.0" fitWidth="600.0" opacity="0.66" pickOnBounds="true">
+               <image>
+                  <Image url="@../../../../../res/asean.png" />
+               </image>
+            </ImageView>
+            <Canvas fx:id="backgroundCanvas" height="500.0" width="600.0" />
+            <Canvas fx:id="canvas" height="500.0" width="600.0" />
+         </children>
+      </StackPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="806.0" prefWidth="241.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="textField" editable="false" focusTraversable="false" layoutX="82.0" layoutY="306.0" prefHeight="40.0" prefWidth="143.0" />
+            <Label fx:id="label" layoutX="7.0" layoutY="313.0" text="Distance" />
+            <Button fx:id="button" layoutX="64.0" layoutY="23.0" mnemonicParsing="false" onAction="#startSolving" text="Start Visual" />
+            <Button fx:id="stopButton" layoutX="92.0" layoutY="83.0" mnemonicParsing="false" onAction="#stopSolving" text="Stop" />
+            <ProgressBar fx:id="progressBar" layoutX="21.0" layoutY="401.0" prefWidth="200.0" progress="0.0" />
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>
