@@ -94,7 +94,6 @@ public class ParticleSwarmOperation extends AlgorithmsOperation {
 		SwapSeries swapSeries=getDistance(fpos, npos);
 		return swapSeries;
 	}
-	
 	//Print velocity
 	public String getVelocityString(SwapSeries velocity) {
 		StringBuilder stringBuilder=new StringBuilder();

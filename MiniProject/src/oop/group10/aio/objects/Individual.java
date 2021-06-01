@@ -11,6 +11,14 @@ public abstract class Individual {
 		this.optimization=optimization;
 	}
 	
+	public int[] getTour() {
+		return tour;
+	}
+
+	public float getTourLength() {
+		return tourLength;
+	}
+
 	public abstract void init();
 	
 	public abstract void constructSolution();
