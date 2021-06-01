@@ -5,20 +5,27 @@ public class PheromonesGraph {
 	private float density[][];
 	
 	//Initialize graph
-	public void initGraph() {
-		// TODO Auto-generated method stub
-		
-	}
 	
+	public PheromonesGraph(int numberOfCities) {
+		super();
+		this.density = new float[numberOfCities][numberOfCities];
+	}
+
 	public float getTau(int i,int j) {
-		i=0;j=0;
-		return 0;
+		return density[i][j];
 	}
 	
 	public void evaporation(float rho) {
-		
+		for(int i=0;i<density.length;i++) {
+			for(int j=0;j<density[0].length&&j!=i;j++) {
+				float x=density[i][j]-density[i][j]*rho;
+				if(x>0) {
+					density[i][j] = x;
+				}else density[i][j]=0;
+			}
+		}
 	}
-	public void addDeposit(int i,int j,float value) {
+	public void addDeposit(int i,int j, float value) {
 		density[i][j]+=value;
 	}
 }

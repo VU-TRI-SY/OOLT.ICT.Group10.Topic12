@@ -2,6 +2,7 @@ package oop.group10.aio.objects;
 
 import oop.group10.aio.operation.AntColonyOperation;
 import oop.group10.aio.optimization.OptimizationForTSP;
+import oop.group10.aio.optimization.aco.AntColonyOptimization;
 
 public class Ant extends Individual {
 	//Id of the ant
@@ -21,15 +22,22 @@ public class Ant extends Individual {
 		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
 	public void constructSolution() {
 		// TODO Auto-generated method stub
-		
+		AntColonyOptimization o = (AntColonyOptimization) optimization;
+		tour = operation.getNewTour(o.getAlpha(),o.getBeta());
+		tourLength = optimization.getProblem().evaluate(tour);
 	}
-	//Construct a tour use operation
-	private void constructTour() {
-		
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder=new StringBuilder();
+		stringBuilder.append(id).append(". {");
+		int i;
+		for(i=0;i<tour.length;i++) stringBuilder.append(tour[i]).append(",");
+		stringBuilder.append("} Value: ").append(tourLength);
+		String str=stringBuilder.toString();
+		return str;
 	}
 	
 }
