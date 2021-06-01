@@ -29,6 +29,7 @@
             <Button fx:id="button" layoutX="64.0" layoutY="23.0" mnemonicParsing="false" onAction="#startSolving" text="Start Visual" />
             <Button fx:id="stopButton" layoutX="92.0" layoutY="83.0" mnemonicParsing="false" onAction="#stopSolving" text="Stop" />
             <ProgressBar fx:id="progressBar" layoutX="21.0" layoutY="401.0" prefWidth="200.0" progress="0.0" />
+            <ChoiceBox fx:id="choiceBox" layoutX="11.0" layoutY="180.0" prefHeight="39.0" prefWidth="212.0" />
          </children>
       </AnchorPane>
    </right>
