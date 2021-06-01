@@ -11,7 +11,7 @@ public class PheromonesGraph {
 	}
 	
 	public float getTau(int i,int j) {
-		
+		i=0;j=0;
 		return 0;
 	}
 	
