@@ -27,7 +27,7 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 		super(problem, controller);
 		// TODO Auto-generated constructor stub
 		operation=new SimulatedAneallingOperation(problem);
-		startTemperature=3000;
+		startTemperature=500;
 	}	
 	
 	//Initialize optimization
@@ -68,6 +68,7 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 	private void updateDataAtEndLoop() {
 		currentIteration++;
 		currentTemperature*=0.99;
+		if(currentTemperature<0.2) currentTemperature=200;
 	}
 	
 	

@@ -125,7 +125,6 @@ public class Controller implements Initializable{
 		if(optimization==null) return;
 		optimization.stopSolving();
 	}
-	
 	//When click stop will stop progress bar motion
 	public void stopProgressBarMotion() {
 		float x=(float)progressBar.getProgress();

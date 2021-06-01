@@ -36,8 +36,8 @@ public class SimulatedAneallingOperation extends AlgorithmsOperation {
 	public int[] getRandNeighborState(int[] tour) {
 		int[] cloneTour=tour.clone();
 		int size=tour.length;
-		int randNum1=random.nextInt(size-2)+1;
-		int randNum2=random.nextInt(size-2)+1;
+		int randNum1=random.nextInt(size-1)+1;
+		int randNum2=random.nextInt(size-1)+1;
 		while(randNum2==randNum1) randNum2=random.nextInt(size-2)+1;
 		int temp=cloneTour[randNum1];
 		cloneTour[randNum1]=cloneTour[randNum2];
