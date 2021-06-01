@@ -30,8 +30,8 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 		//Default value
 		operation=new ParticleSwarmOperation(problem);
 		numberOfParticles=100;
-		alpha=0.1f;
-		beta=0.9f;
+		alpha=0.0f;
+		beta=1.0f;
 	}
 	
 	@Override
@@ -42,7 +42,7 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 			printSolution();
 			//Slow down the process
 			try {
-				Thread.sleep(100);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 			}
@@ -128,6 +128,12 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 	}
 	public float getBeta() {
 		return beta;
+	}
+
+	@Override
+	public void setOptimizationData(ArrayList<Float> listOfData) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
