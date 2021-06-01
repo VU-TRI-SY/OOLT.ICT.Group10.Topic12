@@ -87,7 +87,10 @@ public class TravelingSalesmanProblem {
 	public float[][] getXoyMap() {
 		return xoyMap;
 	}
+<<<<<<< HEAD
 	public float getDistance(int i,int j) {
 		return map[i][j];
 	}
+=======
+>>>>>>> branch 'master' of https://github.com/VU-TRI-SY/OOLT.ICT.Group10.Topic12.git
 }

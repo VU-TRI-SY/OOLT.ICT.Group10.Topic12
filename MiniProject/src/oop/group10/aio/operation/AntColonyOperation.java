@@ -15,6 +15,7 @@ public class AntColonyOperation extends AlgorithmsOperation {
 	
 	//Get the value of deposit value of ant on each road
 	private float getDepositValue(int[] tour) {
+<<<<<<< HEAD
 		float depositValue = problem.evaluate(tour);
 		return 1/depositValue;
 	}
@@ -70,3 +71,43 @@ public class AntColonyOperation extends AlgorithmsOperation {
 		return i;
 	}
 }
+=======
+		float depositValue=problem.evaluate(tour);
+		return 1/depositValue;
+	}
+	//Deposit pheromones on road map
+	public void depositOnGraph(int[] tour,int rho) {
+		int numberOfCities=problem.getNumberOfCities();
+		int i,j;
+		for(i=0;i<numberOfCities;i++) {
+			for(j=0;j<numberOfCities;j++) {
+				graph.evaporation(rho);
+				graph.addDeposit(i, j, getDepositValue(tour));
+			}
+		}
+	}
+	//Get new tour for ant
+	public int[] getNewTour(float alpha,float beta) {
+		int numCities=problem.getNumberOfCities();
+		ArrayList<Integer> listNodes=new ArrayList<Integer>();
+		int i;
+		for(i=0;i<numCities;i++) listNodes.add(i);
+		int[] list=new int[numCities];
+		//Repeat process ... to get the tour
+		
+		return null;
+	}
+	
+	//Probability for the road from city i to j
+	private float getChooseProbabilty(int i,int j) {
+		return 0;
+	}
+	private int nextCityToGo(ArrayList<Float> probabilty) {
+		
+		return 0;
+	}
+	
+	
+	
+}
+>>>>>>> branch 'master' of https://github.com/VU-TRI-SY/OOLT.ICT.Group10.Topic12.git
