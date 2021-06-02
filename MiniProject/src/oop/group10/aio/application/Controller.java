@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -67,13 +68,30 @@ public class Controller implements Initializable{
 
     @FXML
     private TextField textField;
+    
+    @FXML
+    private Slider speed;
+    
+    @FXML
+    private TextField speedField;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		temperatureBar.setStyle("-fx-accent: red");
+		speedField.setText(1.0+"");
 		problem=new TravelingSalesmanProblem();
 		drawCanvasBackground();
+		speed.valueProperty().addListener(new ChangeListener<Number>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				// TODO Auto-generated method stub
+				int intValue=newValue.intValue();
+				speedField.setText(intValue+".0");
+				optimization.setSpeed(intValue);
+			}			
+		});
 		choiceBox.getItems().add("Particle Swarm Optimization");
 		choiceBox.getItems().add("Simulated Anealling Optimization");
 		choiceBox.getItems().add("Ant Colony Optimization");
@@ -130,6 +148,7 @@ public class Controller implements Initializable{
 		}
 		drawCanvasBackground();
 		Thread t= new Thread(optimization, "Optimization");
+		optimization.setSpeed((int)speed.getValue());
 		t.start();
 	}
 	public void stopSolving() {

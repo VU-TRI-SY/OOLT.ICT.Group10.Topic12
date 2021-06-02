@@ -60,6 +60,12 @@ public class AntColonyOptimization extends OptimizationForTSP {
 			updatePheromonesMap();
 			printSolution();
 			//Optional slow down the process
+			try {
+				Thread.sleep(threadDelay);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			render();
 			updateDataAtEndLoop();
 		}
