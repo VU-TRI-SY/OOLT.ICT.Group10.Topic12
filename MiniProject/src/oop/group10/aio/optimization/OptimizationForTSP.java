@@ -11,6 +11,8 @@ public abstract class OptimizationForTSP implements Runnable {
 	protected int[] globalBest;
 	protected float globalBestValue;
 	protected int numberOfIteration;
+	protected final int maxThreadDelay=500;
+	protected int threadDelay;
 	protected boolean onActive;
 	protected final int maxReadySolution=100;
 	protected int readySolution;
@@ -19,6 +21,7 @@ public abstract class OptimizationForTSP implements Runnable {
 	protected Controller controller;
 	public OptimizationForTSP(TravelingSalesmanProblem problem,Controller controller) {
 		// TODO Auto-generated constructor stub
+		threadDelay=500;
 		globalBest=null;
 		numberOfIteration=100;
 		this.problem=problem;
@@ -56,5 +59,8 @@ public abstract class OptimizationForTSP implements Runnable {
 	}
 	public int getMaximumIteration() {
 		return numberOfIteration;
+	}
+	public void setSpeed(int speed) {
+		threadDelay=maxThreadDelay/speed;
 	}
 }

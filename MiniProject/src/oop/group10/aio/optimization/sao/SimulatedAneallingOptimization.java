@@ -34,7 +34,6 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 	
 	private void init() {
 		currentTemperature=startTemperature;
-		currentIteration=0;
 		state=new State(this, operation);
 		state.init();
 		globalBest=state.cloneTour();
@@ -50,7 +49,7 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 			state.constructSolution();
 			printSolution();
 			try {
-				Thread.sleep(50);
+				Thread.sleep(threadDelay);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 			}

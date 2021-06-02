@@ -35,12 +35,9 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 		//Default value
 		operation=new ParticleSwarmOperation(problem);
 		numberOfParticles=50;
-		alpha=0.5f;
 		alphaMax=0.5f;
-		beta=0.5f;
 		betaMin=0.5f;
-		w=0.8f;
-		maxW=0.8f;
+		maxW=0.5f;
 	}
 	
 	@Override
@@ -51,7 +48,7 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 			printSolution();
 			//Slow down the process
 			try {
-				Thread.sleep(100);
+				Thread.sleep(threadDelay);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 			}
@@ -64,8 +61,11 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 	
 	//Initialize optimization
 	private void init() {
+		alpha=0.5f;
+		beta=0.5f;
+		w=0.5f;
 		readySolution=0;
-		numberOfIteration=100;
+		numberOfIteration=200;
 		currentIteration=0;
 		particles=new ArrayList<Particle>();
 		int i;
