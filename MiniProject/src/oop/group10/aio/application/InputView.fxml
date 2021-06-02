@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -8,18 +9,24 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.group10.aio.application.InputController">
+<AnchorPane fx:id="anchorPane" prefHeight="499.0" prefWidth="776.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.group10.aio.application.InputController">
    <children>
       <ImageView fitHeight="500.0" fitWidth="600.0" pickOnBounds="true">
          <image>
             <Image url="@../../../../../res/asean.png" />
          </image>
       </ImageView>
-      <TextField fx:id="textField1" editable="false" layoutX="600.0" layoutY="134.0" prefHeight="39.0" prefWidth="86.0" />
-      <TextField fx:id="textField2" editable="false" layoutX="600.0" layoutY="196.0" prefHeight="39.0" prefWidth="86.0" />
-      <Text layoutX="613.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Position" />
-      <Text fill="#f20000" layoutX="600.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click on the map to choose position of cities" wrappingWidth="134.2216796875" />
+      <TextField fx:id="textField1" editable="false" layoutX="645.0" layoutY="134.0" prefHeight="39.0" prefWidth="86.0" />
+      <TextField fx:id="textField2" editable="false" layoutX="645.0" layoutY="198.0" prefHeight="39.0" prefWidth="86.0" />
+      <Text layoutX="633.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Position">
+         <font>
+            <Font size="26.0" />
+         </font></Text>
+      <Text fill="#f20000" layoutX="612.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click on the map to choose position of cities" wrappingWidth="134.2216796875" />
       <Canvas fx:id="canvas" height="500.0" width="600.0" />
-      <Button fx:id="finish" layoutX="613.0" layoutY="374.0" mnemonicParsing="false" onAction="#sendDataToController" text="Finish" />
+      <Button fx:id="finish" layoutX="627.0" layoutY="367.0" mnemonicParsing="false" onAction="#sendDataToController" prefHeight="67.0" prefWidth="104.0" text="Finish" textFill="#0611ee" />
+      <TextField fx:id="promptText" editable="false" layoutX="606.0" layoutY="447.0" prefHeight="39.0" prefWidth="146.0" />
+      <Text layoutX="610.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X:" />
+      <Text layoutX="610.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Y:" />
    </children>
 </AnchorPane>

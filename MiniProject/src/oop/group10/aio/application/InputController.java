@@ -36,6 +36,9 @@ public class InputController implements Initializable {
 
     @FXML
     private TextField textField1;
+    
+    @FXML
+    private TextField promptText;
 
 	void putControllerReference(Controller controller){
 		this.controller=controller;
@@ -55,6 +58,7 @@ public class InputController implements Initializable {
 			public void handle(MouseEvent event) {
 				// TODO Auto-generated method stub
 				if(event.getTarget()==finish) return;
+				if(event.getX()>=600) return;
 				float x=(float)event.getX();
 				float y=(float)event.getY();
 				drawPointOnCanvas(x, y);
@@ -63,6 +67,7 @@ public class InputController implements Initializable {
 				yPos.add(y);
 				textField1.setText(x+"");
 				textField2.setText(y+"");
+				promptText.setPromptText("("+x+","+y+")");
 			}
 		});
 	}
@@ -75,6 +80,7 @@ public class InputController implements Initializable {
 	}
 	public void sendDataToController() {
 		controller.inputDataForProblem(xPos, yPos, numOfCites);
+		promptText.setPromptText("Finished!");
 	}
 	
 	
