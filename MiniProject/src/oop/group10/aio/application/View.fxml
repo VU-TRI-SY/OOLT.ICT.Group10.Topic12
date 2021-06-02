@@ -31,6 +31,7 @@
             <ProgressBar fx:id="progressBar" layoutX="21.0" layoutY="401.0" prefWidth="200.0" progress="0.0" />
             <ChoiceBox fx:id="choiceBox" layoutX="12.0" layoutY="188.0" prefHeight="39.0" prefWidth="212.0" />
             <Button fx:id="inputButton" layoutX="9.0" layoutY="107.0" mnemonicParsing="false" onAction="#switchToInputView" prefHeight="63.0" prefWidth="122.0" text="Input cities" textFill="#0fc950" />
+            <ProgressBar fx:id="temperatureBar" layoutX="21.0" layoutY="401.0" prefWidth="200.0" progress="0.0" />
          </children>
       </AnchorPane>
    </right>

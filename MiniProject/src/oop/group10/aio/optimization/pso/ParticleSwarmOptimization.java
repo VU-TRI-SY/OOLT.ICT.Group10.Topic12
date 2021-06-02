@@ -18,8 +18,13 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 	private int numberOfParticles;
 	//Importance of local best
 	private float alpha;
+	private float alphaMax;
 	//Importance of global best
 	private float beta;
+	private float betaMin;
+	//Importance of temporary velocity
+	private float w;
+	private float maxW;
 	//Operation of ParticleSwarmOptimization
 	private ParticleSwarmOperation operation;
 	//Particles
@@ -29,9 +34,13 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 		super(problem,controller);
 		//Default value
 		operation=new ParticleSwarmOperation(problem);
-		numberOfParticles=100;
-		alpha=0.0f;
-		beta=1.0f;
+		numberOfParticles=50;
+		alpha=0.5f;
+		alphaMax=0.5f;
+		beta=0.5f;
+		betaMin=0.5f;
+		w=0.8f;
+		maxW=0.8f;
 	}
 	
 	@Override
@@ -42,7 +51,7 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 			printSolution();
 			//Slow down the process
 			try {
-				Thread.sleep(10);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 			}
@@ -55,6 +64,8 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 	
 	//Initialize optimization
 	private void init() {
+		readySolution=0;
+		numberOfIteration=100;
 		currentIteration=0;
 		particles=new ArrayList<Particle>();
 		int i;
@@ -81,11 +92,15 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 				globalBest=particles.get(i).cloneTour();
 				globalBestValue=getProblem().evaluate(globalBest);
 				controller.setGlobalBest();
+				readySolution=0;
+		}else {
+			if(i==numberOfParticles-1) readySolution++;
 		}
 	}
 	//System out the solution
 	public void printSolution() {
 		System.out.println("Global best: "+globalBestValue);
+		System.out.println("Ready: "+readySolution);
 	}
 	
 	//Stop motion
@@ -100,6 +115,10 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 	//iteration++ each loop
 	private void updateDataAtEndLoop() {
 		currentIteration++;	
+		alpha-=alphaMax/numberOfIteration;
+		beta+=(1-betaMin)/numberOfIteration;
+		w-=maxW/numberOfIteration;
+		System.out.println("Alpha: "+alpha+" Beta: "+beta+" W: "+w);
 	}
 	
 	@Override
@@ -129,7 +148,9 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 	public float getBeta() {
 		return beta;
 	}
-
+	public float getW() {
+		return w;
+	}
 	@Override
 	public void setOptimizationData(ArrayList<Float> listOfData) {
 		// TODO Auto-generated method stub

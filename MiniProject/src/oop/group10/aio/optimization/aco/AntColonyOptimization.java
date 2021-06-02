@@ -85,6 +85,7 @@ public class AntColonyOptimization extends OptimizationForTSP {
 	private void printSolution() {
 		// TODO Auto-generated method stub
 		System.out.println("Global best: "+globalBestValue);
+		System.out.println("Ready: "+readySolution);
 	}
 	
 	//Update global best (Will be call inside Ant instance) with i is id of the ant
@@ -95,6 +96,9 @@ public class AntColonyOptimization extends OptimizationForTSP {
 			globalBest=ants.get(i).cloneTour();
 			globalBestValue=getProblem().evaluate(globalBest);
 			controller.setGlobalBest();
+			readySolution=0;
+		}else {
+			if(i==numberOfAnts-1) readySolution++;
 		}
 	}
 	private void render() {

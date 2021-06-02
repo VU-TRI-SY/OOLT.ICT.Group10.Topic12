@@ -25,6 +25,13 @@ public class SwapSeries {
 			addSwapOperator(operator);
 		}
 	}
+	public void addPartialSwapSeries(SwapSeries swapSeries,float percent) {
+		Iterator<SwapOperator> iterator=swapSeries.listOfSOperators.iterator();
+		while(iterator.hasNext()) {
+			SwapOperator operator=(SwapOperator) iterator.next();
+			if(Math.random()<percent) addSwapOperator(operator);
+		}
+	}
 	//Simplify the SwapSeries
 	public void simplify() {
 		

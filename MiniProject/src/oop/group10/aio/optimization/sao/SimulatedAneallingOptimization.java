@@ -62,13 +62,11 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 	@Override
 	public boolean terminatedCondition() {
 		// TODO Auto-generated method stub
-		return currentTemperature<0.1||onActive==false;
+		return currentTemperature<1||onActive==false;
 	}
 	//Update temperature each loop and iteration++
 	private void updateDataAtEndLoop() {
-		currentIteration++;
 		currentTemperature*=0.99;
-		if(currentTemperature<0.2) currentTemperature=200;
 	}
 	
 	
@@ -84,7 +82,7 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 		}
 	}
 	private void stop() {
-		controller.stopProgressBarMotion();
+		controller.stopTemperatureBarMotion();
 	}
 	
 	private void printSolution() {
@@ -94,7 +92,7 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 	}
 	
 	public void render() {
-		controller.changeProgress();
+		controller.changeTemperatureProgress();
 		renderGraphics(controller.getCanvas());
 	}
 	
@@ -127,5 +125,8 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 	}
 	public float getCurrentTemperature() {
 		return currentTemperature;
+	}
+	public float getStartTemperature() {
+		return startTemperature;
 	}
 }
