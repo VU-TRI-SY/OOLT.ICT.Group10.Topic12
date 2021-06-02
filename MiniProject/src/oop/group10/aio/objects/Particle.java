@@ -4,6 +4,7 @@ package oop.group10.aio.objects;
 import oop.group10.aio.operation.ParticleSwarmOperation;
 import oop.group10.aio.optimization.OptimizationForTSP;
 import oop.group10.aio.optimization.pso.ParticleSwarmOptimization;
+import oop.group10.aio.swap.SwapOperator;
 import oop.group10.aio.swap.SwapSeries;
 
 public class Particle extends Individual {
@@ -27,8 +28,8 @@ public class Particle extends Individual {
 		localbest=cloneTour();
 		localbestvalue=tourLength;
 		velocity=new SwapSeries();
-		//velocity.addSwapOperator(new SwapOperator(1, 1));
-		velocity=operation.getRandomVelocity();
+		velocity.addSwapOperator(new SwapOperator(0, 0));
+		//velocity=operation.getRandomVelocity();
 	}
 	//Particle moving
 	@Override
@@ -40,7 +41,7 @@ public class Particle extends Individual {
 		optimization.updateGlobalBest(id);
 		System.out.println(this.toString());
 		//Change this to change the individual velocity of particles(Initial velocity)
-		velocity=operation.getRandomVelocity();
+		//velocity=operation.getRandomVelocity();
 	}
 	//Update the local best position
 	public void updateLocalBest() {
@@ -63,7 +64,8 @@ public class Particle extends Individual {
 		//Get alpha and beta
 		float alpha=optimization.getAlpha();
 		float beta=optimization.getBeta();
-		velocity=operation.getNewVelocity(velocity, operation.getDistance(tour, localbest), operation.getDistance(tour, globalBest),alpha , beta);
+		float w=optimization.getW();
+		velocity=operation.getNewVelocity(velocity, operation.getDistance(tour, localbest), operation.getDistance(tour, globalBest),alpha , beta,w);
 	}
 	
 	@Override

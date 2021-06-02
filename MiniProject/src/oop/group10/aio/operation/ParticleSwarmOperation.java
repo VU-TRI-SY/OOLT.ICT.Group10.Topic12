@@ -10,7 +10,6 @@ import oop.group10.aio.tsp.TravelingSalesmanProblem;
 
 public class ParticleSwarmOperation extends AlgorithmsOperation {
 	//Reference
-	
 	public ParticleSwarmOperation(TravelingSalesmanProblem problem) {
 		// TODO Auto-generated constructor stub
 		super(problem);
@@ -54,19 +53,25 @@ public class ParticleSwarmOperation extends AlgorithmsOperation {
 		return position;
 	}
 	//Accept the importance of alpha or beta
-	private boolean acceptImportance(float probability) {
-		float randProb= nextFloat(0.0f, 1.0f);
-		if(probability<randProb) return false;
-		else return true;
-	}
+//	private boolean acceptImportance(float probability) {
+//		float randProb= nextFloat(0.0f, 1.0f);
+//		if(probability<randProb) return false;
+//		else return true;
+//	}
 	//Return the new velocity for particle
-	public SwapSeries getNewVelocity(SwapSeries velocity,SwapSeries toLocal,SwapSeries toGlobal,float alpha,float beta) {
-		if(acceptImportance(alpha)) {
-			velocity.addSwapSeries(toLocal);
-		}
-		if(acceptImportance(beta)) {
-			velocity.addSwapSeries(toGlobal);
-		}
+	public SwapSeries getNewVelocity(SwapSeries velocity,SwapSeries toLocal,SwapSeries toGlobal,float alpha,float beta,float w) {
+//		if(acceptImportance(alpha)) {
+//			velocity.addSwapSeries(toLocal);
+//		}
+//		if(acceptImportance(beta)) {
+//			velocity.addSwapSeries(toGlobal);
+//		}
+		SwapSeries temp=new SwapSeries();
+		temp.addPartialSwapSeries(velocity,w);
+		velocity.clear();
+		velocity.addSwapSeries(temp);
+		velocity.addPartialSwapSeries(toLocal, nextFloat(0, alpha));
+		velocity.addPartialSwapSeries(toGlobal, nextFloat(0, beta));
 		velocity.simplify();
 		return velocity;
 	}

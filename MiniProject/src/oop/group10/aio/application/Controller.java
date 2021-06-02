@@ -39,6 +39,9 @@ public class Controller implements Initializable{
 	private Button button;
 	
 	@FXML
+    private ProgressBar temperatureBar;
+	
+	@FXML
     private Button inputButton;
 	
 	@FXML
@@ -68,6 +71,7 @@ public class Controller implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		temperatureBar.setStyle("-fx-accent: red");
 		problem=new TravelingSalesmanProblem();
 		drawCanvasBackground();
 		choiceBox.getItems().add("Particle Swarm Optimization");
@@ -112,6 +116,13 @@ public class Controller implements Initializable{
 		float progress=(float)current/stopCondition;
 		progressBar.setProgress(progress);
 	}
+	public synchronized void changeTemperatureProgress() {
+		SimulatedAneallingOptimization o=(SimulatedAneallingOptimization) optimization;
+		float maxTemperature=o.getStartTemperature();
+		float currentTemperature=o.getCurrentTemperature();
+		float progress=(float)currentTemperature/maxTemperature;
+		temperatureBar.setProgress(progress);
+	}
 	public synchronized void startSolving() {
 		if(optimization==null) {
 			System.out.println("Please choose Optimization!");
@@ -141,6 +152,22 @@ public class Controller implements Initializable{
 			// TODO Auto-generated catch block
 		}
 	}
+	public void stopTemperatureBarMotion() {
+		float x=(float)temperatureBar.getProgress();
+		float i = x;
+		while(i<1.0) {
+			i+=0.000001;
+			temperatureBar.setProgress(i);
+		}
+		temperatureBar.setProgress(1.0);
+		//Wait for the process complete 
+		try {
+			Thread.currentThread().join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+		}
+	}
+	
 	public Canvas getCanvas() {
 		return canvas;
 	}
@@ -156,12 +183,18 @@ public class Controller implements Initializable{
 		graphicsContext.closePath();
 	}
 	public void changeToPSOSolver() {
+		progressBar.setVisible(true);
+		temperatureBar.setVisible(false);
 		optimization=new ParticleSwarmOptimization(problem, this);
 	}
 	public void changeToSAOSolver() {
+		progressBar.setVisible(false);
+		temperatureBar.setVisible(true);
 		optimization=new SimulatedAneallingOptimization(problem, this);
 	}
 	public void changeToACOSolver() {
+		progressBar.setVisible(true);
+		temperatureBar.setVisible(false);
 		optimization=new AntColonyOptimization(problem, this);
 	}
 	public void inputDataForProblem(ArrayList<Float> xPos,ArrayList<Float> yPos,int numOfCites) {

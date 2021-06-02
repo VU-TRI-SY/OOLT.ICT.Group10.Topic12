@@ -12,16 +12,19 @@ public abstract class OptimizationForTSP implements Runnable {
 	protected float globalBestValue;
 	protected int numberOfIteration;
 	protected boolean onActive;
+	protected final int maxReadySolution=100;
+	protected int readySolution;
 	protected int currentIteration;
 	protected TravelingSalesmanProblem problem;
 	protected Controller controller;
 	public OptimizationForTSP(TravelingSalesmanProblem problem,Controller controller) {
 		// TODO Auto-generated constructor stub
 		globalBest=null;
-		numberOfIteration=1000;
+		numberOfIteration=100;
 		this.problem=problem;
 		this.controller=controller;
 		onActive=false;
+		readySolution=0;
 	}
 	@Override
 	public void run() {
@@ -30,7 +33,7 @@ public abstract class OptimizationForTSP implements Runnable {
 	}
 	//Terminated condition
 	public boolean terminatedCondition() {
-		return (numberOfIteration==currentIteration)||(onActive==false);
+		return (numberOfIteration==currentIteration)||(onActive==false)||(readySolution==maxReadySolution);
 	}
 	public abstract void updateGlobalBest(int i);
 	public abstract void solve();
