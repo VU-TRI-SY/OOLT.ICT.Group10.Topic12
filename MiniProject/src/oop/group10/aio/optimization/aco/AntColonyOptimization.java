@@ -119,17 +119,15 @@ public class AntColonyOptimization extends OptimizationForTSP {
 		
 	}
 	//Render graphics for VIEW
-	@Override
 	public void renderGraphics(Canvas canvas) {
 		// TODO Auto-generated method stub
 		float[][] map=getProblem().getXoyMap();
 		Platform.runLater(()->{
 			GraphicsContext graphicsContext=canvas.getGraphicsContext2D();
 			graphicsContext.setFill(Color.WHITE);
-			//graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			graphicsContext.setStroke(Color.RED);
 			int i;
-			
 			for(i=0;i<problem.getNumberOfCities();i++) {
 				for(int j=0;j<problem.getNumberOfCities()&&j!=i;j++) {
 					graphicsContext.setLineWidth(graph.getTau(i, j)*10);

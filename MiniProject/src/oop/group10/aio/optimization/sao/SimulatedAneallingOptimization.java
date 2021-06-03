@@ -111,7 +111,7 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 				graphicsContext.strokeLine(map[0][currentTour[i]], map[1][currentTour[i]], map[0][currentTour[i+1]], map[1][currentTour[i+1]]);
 			}
 			graphicsContext.strokeLine(map[0][currentTour[i]], map[1][currentTour[i]],map[0][currentTour[0]] , map[1][currentTour[0]]);
-			graphicsContext.closePath();
+			graphicsContext.closePath();	
 			controller.setCurrentSolution(state.getTourLength());
 		});
 		
