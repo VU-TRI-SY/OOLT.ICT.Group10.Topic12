@@ -3,11 +3,11 @@ package oop.group10.aio.optimization;
 
 import java.util.ArrayList;
 
-import javafx.scene.canvas.Canvas;
 import oop.group10.aio.application.Controller;
 import oop.group10.aio.tsp.TravelingSalesmanProblem;
+import oop.group10.aio.utils.Renderable;
 
-public abstract class OptimizationForTSP implements Runnable {
+public abstract class OptimizationForTSP implements Runnable,Renderable {
 	protected int[] globalBest;
 	protected float globalBestValue;
 	protected int numberOfIteration;
@@ -40,7 +40,6 @@ public abstract class OptimizationForTSP implements Runnable {
 	}
 	public abstract void updateGlobalBest(int i);
 	public abstract void solve();
-	public abstract void renderGraphics(Canvas canvas);
 	public abstract void setOptimizationData(ArrayList<Float> listOfData);
 	public TravelingSalesmanProblem getProblem() {
 		return problem;
@@ -60,7 +59,7 @@ public abstract class OptimizationForTSP implements Runnable {
 	public int getMaximumIteration() {
 		return numberOfIteration;
 	}
-	public void setSpeed(int speed) {
-		threadDelay=maxThreadDelay/speed;
+	public void setSpeed(float speed) {
+		threadDelay=(int) (maxThreadDelay/speed);
 	}
 }

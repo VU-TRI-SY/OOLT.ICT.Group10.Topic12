@@ -35,9 +35,9 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 		//Default value
 		operation=new ParticleSwarmOperation(problem);
 		numberOfParticles=50;
-		alphaMax=0.5f;
-		betaMin=0.5f;
-		maxW=0.5f;
+		alphaMax=0.9f;
+		betaMin=0.1f;
+		maxW=0.9f;
 	}
 	
 	@Override
@@ -61,9 +61,9 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 	
 	//Initialize optimization
 	private void init() {
-		alpha=0.5f;
-		beta=0.5f;
-		w=0.5f;
+		alpha=alphaMax;
+		beta=betaMin;
+		w=maxW;
 		readySolution=0;
 		numberOfIteration=200;
 		currentIteration=0;

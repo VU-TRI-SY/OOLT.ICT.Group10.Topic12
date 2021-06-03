@@ -1,7 +1,6 @@
 package oop.group10.aio.operation;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import oop.group10.aio.optimization.aco.PheromonesGraph;
 import oop.group10.aio.tsp.TravelingSalesmanProblem;

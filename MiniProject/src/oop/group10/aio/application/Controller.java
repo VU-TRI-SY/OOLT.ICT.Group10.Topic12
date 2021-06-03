@@ -24,6 +24,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import oop.group10.aio.optimization.OptimizationForTSP;
 import oop.group10.aio.optimization.aco.AntColonyOptimization;
@@ -36,11 +37,23 @@ public class Controller implements Initializable{
 	OptimizationForTSP optimization;
 	
 	TravelingSalesmanProblem problem;
+	//Related to Simulated Anealling
 	@FXML
-	private Button button;
+	private Text textTemp;
+	
+	@FXML
+    private Text temperature;
 	
 	@FXML
     private ProgressBar temperatureBar;
+	
+	//Related to others
+	
+	@FXML
+    private Canvas canvas;
+	
+	@FXML
+	private Button button;
 	
 	@FXML
     private Button inputButton;
@@ -50,9 +63,6 @@ public class Controller implements Initializable{
 	
 	@FXML
     private ChoiceBox<String> choiceBox;
-	
-	@FXML
-    private Canvas canvas;
 
 	@FXML
     private Button stopButton;
@@ -87,9 +97,9 @@ public class Controller implements Initializable{
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				// TODO Auto-generated method stub
-				int intValue=newValue.intValue();
-				speedField.setText(intValue+".0");
-				optimization.setSpeed(intValue);
+				float floatValue=newValue.floatValue();
+				speedField.setText(Math.ceil(floatValue*10)/10+"");
+				if(optimization!=null) optimization.setSpeed(floatValue);
 			}			
 		});
 		choiceBox.getItems().add("Particle Swarm Optimization");
@@ -128,6 +138,45 @@ public class Controller implements Initializable{
 			textField.setText(""+optimization.getGlobalBestValue());
 		});
 	}
+	//Change to correspond solver
+	public void changeToPSOSolver() {
+		progressBar.setVisible(true);
+		temperatureBar.setVisible(false);
+		temperature.setVisible(false);
+		textTemp.setVisible(false);
+		optimization=new ParticleSwarmOptimization(problem, this);
+	}
+	public void changeToSAOSolver() {
+		progressBar.setVisible(false);
+		temperatureBar.setVisible(true);
+		temperature.setVisible(true);
+		textTemp.setVisible(true);
+		optimization=new SimulatedAneallingOptimization(problem, this);
+	}
+	public void changeToACOSolver() {
+		progressBar.setVisible(true);
+		temperatureBar.setVisible(false);
+		temperature.setVisible(false);
+		textTemp.setVisible(false);
+		optimization=new AntColonyOptimization(problem, this);
+	}
+	//Start solving
+	public synchronized void startSolving() {
+		if(optimization==null) {
+			System.out.println("Please choose Optimization!");
+			return;
+		}
+		drawCanvasBackground();
+		Thread t= new Thread(optimization, "Optimization");
+		optimization.setSpeed((int)speed.getValue());
+		t.start();
+	}
+	//Stop solving
+	public void stopSolving() {
+		if(optimization==null) return;
+		optimization.stopSolving();
+	}
+	//Change the progress bar while running
 	public synchronized void changeProgress() {
 		int stopCondition=optimization.getMaximumIteration();
 		int current=optimization.getCurrentIteration();
@@ -139,21 +188,8 @@ public class Controller implements Initializable{
 		float maxTemperature=o.getStartTemperature();
 		float currentTemperature=o.getCurrentTemperature();
 		float progress=(float)currentTemperature/maxTemperature;
+		temperature.setText(Math.ceil(currentTemperature*100)/100 +"");
 		temperatureBar.setProgress(progress);
-	}
-	public synchronized void startSolving() {
-		if(optimization==null) {
-			System.out.println("Please choose Optimization!");
-			return;
-		}
-		drawCanvasBackground();
-		Thread t= new Thread(optimization, "Optimization");
-		optimization.setSpeed((int)speed.getValue());
-		t.start();
-	}
-	public void stopSolving() {
-		if(optimization==null) return;
-		optimization.stopSolving();
 	}
 	//When click stop will stop progress bar motion
 	public void stopProgressBarMotion() {
@@ -186,10 +222,11 @@ public class Controller implements Initializable{
 			// TODO Auto-generated catch block
 		}
 	}
-	
+	//Get canvas for drawing on it
 	public Canvas getCanvas() {
 		return canvas;
 	}
+	//Draw the cities in background
 	public synchronized void drawCanvasBackground() {
 		float[][] map=problem.getXoyMap();
 		GraphicsContext graphicsContext=backgroundCanvas.getGraphicsContext2D();
@@ -201,24 +238,12 @@ public class Controller implements Initializable{
 		}
 		graphicsContext.closePath();
 	}
-	public void changeToPSOSolver() {
-		progressBar.setVisible(true);
-		temperatureBar.setVisible(false);
-		optimization=new ParticleSwarmOptimization(problem, this);
-	}
-	public void changeToSAOSolver() {
-		progressBar.setVisible(false);
-		temperatureBar.setVisible(true);
-		optimization=new SimulatedAneallingOptimization(problem, this);
-	}
-	public void changeToACOSolver() {
-		progressBar.setVisible(true);
-		temperatureBar.setVisible(false);
-		optimization=new AntColonyOptimization(problem, this);
-	}
+	
+	//Input data for problem
 	public void inputDataForProblem(ArrayList<Float> xPos,ArrayList<Float> yPos,int numOfCites) {
 		problem.init(xPos, yPos, numOfCites);
 	}
+	//Change to input view
 	public void switchToInputView() {
 		FXMLLoader loader=new FXMLLoader(getClass().getResource("InputView.fxml"));
 		Parent root=null;
