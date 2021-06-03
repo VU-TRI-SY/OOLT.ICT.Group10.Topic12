@@ -2,7 +2,10 @@ package oop.group10.aio.optimization.aco;
 
 import java.util.ArrayList;
 
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import oop.group10.aio.application.Controller;
 import oop.group10.aio.objects.Ant;
 import oop.group10.aio.operation.AntColonyOperation;
@@ -77,8 +80,10 @@ public class AntColonyOptimization extends OptimizationForTSP {
 	}
 	//Update pheromones map
 	private void updatePheromonesMap() {
+		graph.evaporation(rho);
 		for(Ant ant:ants) {
-			operation.depositOnGraph(ant.getTour(),rho);
+			
+			operation.depositOnGraph(ant.getTour());
 		}
 	}
 	//Update data at end loop
@@ -117,6 +122,22 @@ public class AntColonyOptimization extends OptimizationForTSP {
 	@Override
 	public void renderGraphics(Canvas canvas) {
 		// TODO Auto-generated method stub
+		float[][] map=getProblem().getXoyMap();
+		Platform.runLater(()->{
+			GraphicsContext graphicsContext=canvas.getGraphicsContext2D();
+			graphicsContext.setFill(Color.WHITE);
+			//graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			graphicsContext.setStroke(Color.RED);
+			int i;
+			
+			for(i=0;i<problem.getNumberOfCities();i++) {
+				for(int j=0;j<problem.getNumberOfCities()&&j!=i;j++) {
+					graphicsContext.setLineWidth(graph.getTau(i, j)*10);
+					graphicsContext.strokeLine(map[0][i], map[1][i], map[0][j], map[1][j]);
+				}
+			}
+			graphicsContext.closePath();
+		});
 		
 	}
 

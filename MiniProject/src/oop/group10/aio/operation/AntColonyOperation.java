@@ -20,12 +20,22 @@ public class AntColonyOperation extends AlgorithmsOperation {
 		return 1/depositValue;
 	}
 	//Deposit pheromones on road map
-	public void depositOnGraph(int[] tour,float rho) {
+	/*public void depositOnGraph(int[] tour,float rho) {
 		int numberOfCities = problem.getNumberOfCities();
 		for(int i = 0; i < numberOfCities; i++) {
 			for(int j = 0; j < numberOfCities && j != i; j++) {
-				graph.evaporation(rho);
 				graph.addDeposit(i,j,getDepositValue(tour));
+			}
+		}
+	}*/
+	public void depositOnGraph(int[] tour) {
+		for(int i=0;i<tour.length;i++) {
+			if(i==tour.length-1) {
+				graph.addDeposit(tour[i],tour[0],getDepositValue(tour));
+				graph.addDeposit(tour[0],tour[i],getDepositValue(tour));
+			}else {
+				graph.addDeposit(tour[i],tour[i+1],getDepositValue(tour));
+				graph.addDeposit(tour[i+1],tour[i],getDepositValue(tour));
 			}
 		}
 	}
@@ -70,4 +80,5 @@ public class AntColonyOperation extends AlgorithmsOperation {
 		}
 		return i;
 	}
+
 }
