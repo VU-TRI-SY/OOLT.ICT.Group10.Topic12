@@ -67,9 +67,9 @@ public class ParticleSwarmOperation extends AlgorithmsOperation {
 //			velocity.addSwapSeries(toGlobal);
 //		}
 		SwapSeries temp=new SwapSeries();
-		temp.addPartialSwapSeries(velocity,w);
+		temp.addSwapSeries(velocity);
 		velocity.clear();
-		velocity.addSwapSeries(temp);
+		velocity.addPartialSwapSeries(temp, nextFloat(0, w));
 		velocity.addPartialSwapSeries(toLocal, nextFloat(0, alpha));
 		velocity.addPartialSwapSeries(toGlobal, nextFloat(0, beta));
 		velocity.simplify();

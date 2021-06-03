@@ -21,6 +21,8 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 	private State state;
 	//Operation of the optimization
 	private SimulatedAneallingOperation operation;
+	//First time reach 5
+	private boolean firstTime=false;
 	
 	
 	public SimulatedAneallingOptimization(TravelingSalesmanProblem problem, Controller controller) {
@@ -61,11 +63,15 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 	@Override
 	public boolean terminatedCondition() {
 		// TODO Auto-generated method stub
-		return currentTemperature<1||onActive==false;
+		return currentTemperature<0.1||onActive==false;
 	}
 	//Update temperature each loop and iteration++
 	private void updateDataAtEndLoop() {
 		currentTemperature*=0.99;
+		if(currentTemperature<5&&firstTime==false) {
+			currentTemperature=50;
+			firstTime=true;
+		}
 	}
 	
 	

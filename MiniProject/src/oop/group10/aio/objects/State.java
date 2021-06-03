@@ -22,7 +22,6 @@ public class State extends Individual {
 	public void init() {
 		// TODO Auto-generated method stub
 		tour=operation.initializeState();
-		SimulatedAneallingOptimization o=(SimulatedAneallingOptimization) optimization;
 		tourLength=optimization.getProblem().evaluate(tour);
 	}
 

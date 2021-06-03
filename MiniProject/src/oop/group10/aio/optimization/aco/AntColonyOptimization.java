@@ -32,18 +32,20 @@ public class AntColonyOptimization extends OptimizationForTSP {
 	public AntColonyOptimization(TravelingSalesmanProblem problem, Controller controller) {
 		super(problem, controller);
 		// TODO Auto-generated constructor stub
-		numberOfAnts=30;
-		alpha=0.1f;
-		beta=0.9f;
-		rho=0.4f;
-		graph= new PheromonesGraph(numberOfAnts);
+		numberOfAnts=100;
+		alpha=1.0f;
+		beta=1.0f;
+		rho=0.7f;
+		graph= new PheromonesGraph(problem.getNumberOfCities());
 		operation = new AntColonyOperation (problem,graph);
 	}
 	//Initialize optimization
 	
 	private void init() {
 		// TODO Auto-generated method stub
+		graph.reset(problem.getNumberOfCities());
 		currentIteration = 0;
+		numberOfIteration=1000;
 		ants = new ArrayList<Ant>();
 		for(int i=0;i<numberOfAnts;i++) {
 			Ant ant = new Ant(i,this,operation);
@@ -96,7 +98,6 @@ public class AntColonyOptimization extends OptimizationForTSP {
 	private void printSolution() {
 		// TODO Auto-generated method stub
 		System.out.println("Global best: "+globalBestValue);
-		System.out.println("Ready: "+readySolution);
 	}
 	
 	//Update global best (Will be call inside Ant instance) with i is id of the ant
@@ -113,10 +114,11 @@ public class AntColonyOptimization extends OptimizationForTSP {
 		}
 	}
 	private void render() {
+		controller.changeProgress();
 		renderGraphics(controller.getCanvas());
 	}
 	private void stop() {
-		
+		controller.stopProgressBarMotion();
 	}
 	//Render graphics for VIEW
 	public void renderGraphics(Canvas canvas) {
@@ -126,11 +128,11 @@ public class AntColonyOptimization extends OptimizationForTSP {
 			GraphicsContext graphicsContext=canvas.getGraphicsContext2D();
 			graphicsContext.setFill(Color.WHITE);
 			graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-			graphicsContext.setStroke(Color.RED);
+			graphicsContext.setStroke(Color.BLUE);
 			int i;
 			for(i=0;i<problem.getNumberOfCities();i++) {
 				for(int j=0;j<problem.getNumberOfCities()&&j!=i;j++) {
-					graphicsContext.setLineWidth(graph.getTau(i, j)*10);
+					graphicsContext.setLineWidth(graph.getTau(i, j)*50);
 					graphicsContext.strokeLine(map[0][i], map[1][i], map[0][j], map[1][j]);
 				}
 			}

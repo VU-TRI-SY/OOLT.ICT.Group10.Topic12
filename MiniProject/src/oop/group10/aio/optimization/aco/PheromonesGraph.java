@@ -7,7 +7,6 @@ public class PheromonesGraph {
 	//Initialize graph
 	
 	public PheromonesGraph(int numberOfCities) {
-		super();
 		this.density = new float[numberOfCities][numberOfCities];
 	}
 
@@ -27,5 +26,8 @@ public class PheromonesGraph {
 	}
 	public void addDeposit(int i,int j, float value) {
 		density[i][j]+=value;
+	}
+	public void  reset(int numberOfCities) {
+		this.density = new float[numberOfCities][numberOfCities];
 	}
 }
