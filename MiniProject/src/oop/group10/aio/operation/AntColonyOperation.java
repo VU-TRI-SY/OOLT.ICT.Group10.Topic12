@@ -28,13 +28,14 @@ public class AntColonyOperation extends AlgorithmsOperation {
 		}
 	}*/
 	public void depositOnGraph(int[] tour) {
+		float depositValue=getDepositValue(tour);
 		for(int i=0;i<tour.length;i++) {
 			if(i==tour.length-1) {
-				graph.addDeposit(tour[i],tour[0],getDepositValue(tour));
-				graph.addDeposit(tour[0],tour[i],getDepositValue(tour));
+				graph.addDeposit(tour[i],tour[0],depositValue);
+				graph.addDeposit(tour[0],tour[i],depositValue);
 			}else {
-				graph.addDeposit(tour[i],tour[i+1],getDepositValue(tour));
-				graph.addDeposit(tour[i+1],tour[i],getDepositValue(tour));
+				graph.addDeposit(tour[i],tour[i+1],depositValue);
+				graph.addDeposit(tour[i+1],tour[i],depositValue);
 			}
 		}
 	}
@@ -46,7 +47,9 @@ public class AntColonyOperation extends AlgorithmsOperation {
 		for(i = 0; i < numCities; i++) listNodes.add(i);
 		int[] tour=new int[numCities];// tour of ant
 		//Repeat process ... to get the tour
-		listNodes.remove(0);
+		int firstNode=random.nextInt(numCities);
+		tour[0]=listNodes.get(firstNode);
+		listNodes.remove(firstNode);
 		for(i = 1; i < numCities; i++) {
 			ArrayList<Float> probabilty = new ArrayList<Float>();
 			for(int j : listNodes) {
@@ -55,7 +58,6 @@ public class AntColonyOperation extends AlgorithmsOperation {
 			int next = nextCityToGo(probabilty);
 			tour[i] = listNodes.get(next);
 			listNodes.remove(next);
-			
 		}
 		return tour;
 	}
@@ -63,7 +65,9 @@ public class AntColonyOperation extends AlgorithmsOperation {
 	private float getChooseProbabilty(int i,int j,float alpha,float beta) {
 		float t = graph.getTau(i,j);
 		float n = 1/(problem.getDistance(i, j));
-		return (float) ((Math.pow(t,alpha))+Math.pow(n, beta));// return tu so cua P
+		float denoAlpha=(float) Math.pow(t,alpha);
+		float denoBeta=(float) Math.pow(n, beta);
+		return denoAlpha*denoBeta;// return tu so cua P
 	}
 	private int nextCityToGo(ArrayList<Float> probabilty) {
 		float sumProbabilty=0;

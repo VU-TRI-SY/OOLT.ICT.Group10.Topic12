@@ -14,13 +14,11 @@ public class PheromonesGraph {
 		return density[i][j];
 	}
 	
-	public void evaporation(float rho) {
-		for(int i=0;i<density.length;i++) {
-			for(int j=0;j<density[0].length&&j!=i;j++) {
+	public void evaporation(int numOfCities,float rho) {
+		for(int i=0;i<numOfCities;i++) {
+			for(int j=0;j<numOfCities;j++) {
 				float x=density[i][j]-density[i][j]*rho;
-				if(x>0) {
-					density[i][j] = x;
-				}else density[i][j]=0;
+				density[i][j]=x;
 			}
 		}
 	}

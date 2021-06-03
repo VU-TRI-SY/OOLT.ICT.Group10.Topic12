@@ -34,7 +34,7 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 		super(problem,controller);
 		//Default value
 		operation=new ParticleSwarmOperation(problem);
-		numberOfParticles=50;
+		numberOfParticles=100;
 		alphaMax=0.9f;
 		betaMin=0.1f;
 		maxW=0.9f;

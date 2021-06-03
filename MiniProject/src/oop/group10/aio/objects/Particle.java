@@ -28,8 +28,8 @@ public class Particle extends Individual {
 		localbest=cloneTour();
 		localbestvalue=tourLength;
 		velocity=new SwapSeries();
-		velocity.addSwapOperator(new SwapOperator(0, 0));
-		//velocity=operation.getRandomVelocity();
+//		velocity.addSwapOperator(new SwapOperator(0, 0));
+		velocity=operation.getRandomVelocity();
 	}
 	//Particle moving
 	@Override

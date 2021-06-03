@@ -28,6 +28,7 @@ public class Ant extends Individual {
 		AntColonyOptimization o = (AntColonyOptimization) optimization;
 		tour = operation.getNewTour(o.getAlpha(),o.getBeta());
 		tourLength = optimization.getProblem().evaluate(tour);
+		System.out.println(this.toString());
 	}
 	@Override
 	public String toString() {

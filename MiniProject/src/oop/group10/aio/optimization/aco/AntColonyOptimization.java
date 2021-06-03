@@ -32,10 +32,10 @@ public class AntColonyOptimization extends OptimizationForTSP {
 	public AntColonyOptimization(TravelingSalesmanProblem problem, Controller controller) {
 		super(problem, controller);
 		// TODO Auto-generated constructor stub
-		numberOfAnts=100;
+		numberOfAnts=20;
 		alpha=1.0f;
-		beta=1.0f;
-		rho=0.7f;
+		beta=2.0f;
+		rho=0.4f;
 		graph= new PheromonesGraph(problem.getNumberOfCities());
 		operation = new AntColonyOperation (problem,graph);
 	}
@@ -82,9 +82,8 @@ public class AntColonyOptimization extends OptimizationForTSP {
 	}
 	//Update pheromones map
 	private void updatePheromonesMap() {
-		graph.evaporation(rho);
+		graph.evaporation(problem.getNumberOfCities(),rho);
 		for(Ant ant:ants) {
-			
 			operation.depositOnGraph(ant.getTour());
 		}
 	}
@@ -108,9 +107,6 @@ public class AntColonyOptimization extends OptimizationForTSP {
 			globalBest=ants.get(i).cloneTour();
 			globalBestValue=getProblem().evaluate(globalBest);
 			controller.setGlobalBest();
-			readySolution=0;
-		}else {
-			if(i==numberOfAnts-1) readySolution++;
 		}
 	}
 	private void render() {
@@ -131,9 +127,11 @@ public class AntColonyOptimization extends OptimizationForTSP {
 			graphicsContext.setStroke(Color.BLUE);
 			int i;
 			for(i=0;i<problem.getNumberOfCities();i++) {
-				for(int j=0;j<problem.getNumberOfCities()&&j!=i;j++) {
-					graphicsContext.setLineWidth(graph.getTau(i, j)*50);
-					graphicsContext.strokeLine(map[0][i], map[1][i], map[0][j], map[1][j]);
+				for(int j=0;j<problem.getNumberOfCities();j++) {
+					if(i<j) {
+						graphicsContext.setLineWidth(graph.getTau(i, j)*100);
+						graphicsContext.strokeLine(map[0][i], map[1][i], map[0][j], map[1][j]);
+					}
 				}
 			}
 			graphicsContext.closePath();
