@@ -56,6 +56,7 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 			updateDataAtEndLoop();
 		}
 		stop();
+		System.out.println("Finish!");
 	}
 	
 	
@@ -65,7 +66,6 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 		beta=betaMin;
 		w=maxW;
 		readySolution=0;
-		numberOfIteration=200;
 		currentIteration=0;
 		particles=new ArrayList<Particle>();
 		int i;
@@ -81,6 +81,8 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 		
 		onActive=true;
 	}
+
+
 	//Each particle construct solution
 	private void constructSolution() {
 		int i;
@@ -139,7 +141,31 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 			graphicsContext.closePath();
 		});
 	}
-	
+
+	public float getAlphaMax() {
+		return alphaMax;
+	}
+
+	public void setAlphaMax(float alphaMax) {
+		this.alphaMax = alphaMax;
+	}
+
+	public float getBetaMin() {
+		return betaMin;
+	}
+
+	public void setBetaMin(float betaMin) {
+		this.betaMin = betaMin;
+	}
+
+	public float getMaxW() {
+		return maxW;
+	}
+
+	public void setMaxW(float maxW) {
+		this.maxW = maxW;
+	}
+
 	public ParticleSwarmOperation getOperation() {
 		return operation;
 	}
@@ -152,10 +178,11 @@ public class ParticleSwarmOptimization extends OptimizationForTSP {
 	public float getW() {
 		return w;
 	}
-	@Override
-	public void setOptimizationData(ArrayList<Float> listOfData) {
-		// TODO Auto-generated method stub
-		
+	public int getNumberOfParticles() {
+		return numberOfParticles;
 	}
-	
+
+	public void setNumberOfParticles(int numberOfParticles) {
+		this.numberOfParticles = numberOfParticles;
+	}
 }

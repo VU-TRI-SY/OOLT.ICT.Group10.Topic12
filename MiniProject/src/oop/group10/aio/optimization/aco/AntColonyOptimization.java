@@ -16,10 +16,13 @@ public class AntColonyOptimization extends OptimizationForTSP {
 	//Number of Ants 
 	private int numberOfAnts;
 	//Importance of pheromonesvalue
+	private float defautAlpha;
 	private float alpha;
 	//Importance of heuristics information(length of the tour)
+	private float defautBeta;
 	private float beta;
 	//Evaporation rate
+	private float defautRho;
 	private float rho;
 	//Operation of optimization
 	private AntColonyOperation operation;
@@ -35,9 +38,9 @@ public class AntColonyOptimization extends OptimizationForTSP {
 		super(problem, controller);
 		// TODO Auto-generated constructor stub
 		numberOfAnts=20;
-		alpha=1.0f;
-		beta=2.0f;
-		rho=0.4f;
+		defautAlpha=1.0f;
+		defautBeta=2.0f;
+		defautRho=0.4f;
 		graph= new PheromonesGraph(problem.getNumberOfCities());
 		operation = new AntColonyOperation (problem,graph);
 	}
@@ -45,11 +48,11 @@ public class AntColonyOptimization extends OptimizationForTSP {
 	
 	private void init() {
 		// TODO Auto-generated method stub
-		alpha=1.0f;
-		beta=2.0f;
+		alpha=defautAlpha;
+		beta=defautBeta;
+		rho=defautRho;
 		graph.reset(problem.getNumberOfCities());
 		currentIteration = 0;
-		numberOfIteration=500;
 		ants = new ArrayList<Ant>();
 		for(int i=0;i<numberOfAnts;i++) {
 			Ant ant = new Ant(i,this,operation);
@@ -96,7 +99,10 @@ public class AntColonyOptimization extends OptimizationForTSP {
 		// TODO Auto-generated method stub
 		updatePheromonesMap();
 		currentIteration++;
-		if(currentIteration==100) alpha*=3;
+		if(currentIteration==2*getMaximumIteration()/3) {
+			alpha=4.5f;
+			beta=0.5f;
+		}
 	}
 	//Print solution
 	private void printSolution() {
@@ -152,14 +158,45 @@ public class AntColonyOptimization extends OptimizationForTSP {
 		return alpha;
 	}
 
+	public int getNumberOfAnts() {
+		return numberOfAnts;
+	}
+
+	public void setNumberOfAnts(int numberOfAnts) {
+		this.numberOfAnts = numberOfAnts;
+	}
+
 	public float getBeta() {
 		return beta;
 	}
 
-	@Override
-	public void setOptimizationData(ArrayList<Float> listOfData) {
-		// TODO Auto-generated method stub
-		
+	public float getRho() {
+		return rho;
 	}
+	
+	public float getDefautAlpha() {
+		return defautAlpha;
+	}
+
+	public void setDefautAlpha(float defautAlpha) {
+		this.defautAlpha = defautAlpha;
+	}
+
+	public float getDefautBeta() {
+		return defautBeta;
+	}
+
+	public void setDefautBeta(float defautBeta) {
+		this.defautBeta = defautBeta;
+	}
+
+	public float getDefautRho() {
+		return defautRho;
+	}
+
+	public void setDefautRho(float defautRho) {
+		this.defautRho = defautRho;
+	}
+
 
 }

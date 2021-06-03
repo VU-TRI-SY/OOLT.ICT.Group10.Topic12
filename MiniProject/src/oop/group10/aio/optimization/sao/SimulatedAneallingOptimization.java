@@ -1,6 +1,5 @@
 package oop.group10.aio.optimization.sao;
 
-import java.util.ArrayList;
 
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
@@ -23,13 +22,16 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 	private SimulatedAneallingOperation operation;
 	//First time reach 5
 	private boolean firstTime=false;
+	//Accept Probability
+	private float acceptProbability;
 	
 	
 	public SimulatedAneallingOptimization(TravelingSalesmanProblem problem, Controller controller) {
 		super(problem, controller);
 		// TODO Auto-generated constructor stub
 		operation=new SimulatedAneallingOperation(problem);
-		startTemperature=500;
+		startTemperature=400;
+		acceptProbability=0;
 	}	
 	
 	//Initialize optimization
@@ -120,13 +122,8 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 			graphicsContext.strokeLine(map[0][currentTour[i]], map[1][currentTour[i]],map[0][currentTour[0]] , map[1][currentTour[0]]);
 			graphicsContext.closePath();	
 			controller.setCurrentSolution(state.getTourLength());
+			controller.updateAcceptProbability(acceptProbability);
 		});
-		
-	}
-
-	@Override
-	public void setOptimizationData(ArrayList<Float> listOfData) {
-		// TODO Auto-generated method stub
 		
 	}
 	public float getCurrentTemperature() {
@@ -134,5 +131,8 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 	}
 	public float getStartTemperature() {
 		return startTemperature;
+	}
+	public void setAcceptProbability(float acceptProbability) {
+		this.acceptProbability = acceptProbability;
 	}
 }

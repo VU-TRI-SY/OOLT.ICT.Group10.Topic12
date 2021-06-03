@@ -1,7 +1,6 @@
 package oop.group10.aio.tsp;
 
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -62,6 +61,7 @@ public class TravelingSalesmanProblem {
 	public void inputStatistics() {
 		ClassLoader loader=Thread.currentThread().getContextClassLoader();
 		InputStream fi=loader.getResourceAsStream(path);
+		@SuppressWarnings("resource")
 		Scanner sc= new Scanner(fi);
 		numberOfCities=sc.nextInt();
 		xoyMap=new float[2][numberOfCities];

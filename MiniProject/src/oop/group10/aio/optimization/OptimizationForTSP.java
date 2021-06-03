@@ -1,7 +1,6 @@
 package oop.group10.aio.optimization;
 
 
-import java.util.ArrayList;
 
 import oop.group10.aio.application.Controller;
 import oop.group10.aio.tsp.TravelingSalesmanProblem;
@@ -32,7 +31,9 @@ public abstract class OptimizationForTSP implements Runnable,Renderable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
+		controller.setDisablityOfSlider(true);
 		solve();
+		controller.setDisablityOfSlider(false);
 	}
 	//Terminated condition
 	public boolean terminatedCondition() {
@@ -40,7 +41,6 @@ public abstract class OptimizationForTSP implements Runnable,Renderable {
 	}
 	public abstract void updateGlobalBest(int i);
 	public abstract void solve();
-	public abstract void setOptimizationData(ArrayList<Float> listOfData);
 	public TravelingSalesmanProblem getProblem() {
 		return problem;
 	}
@@ -58,6 +58,9 @@ public abstract class OptimizationForTSP implements Runnable,Renderable {
 	}
 	public int getMaximumIteration() {
 		return numberOfIteration;
+	}
+	public void setNumberOfIteration(int numberOfIteration) {
+		this.numberOfIteration = numberOfIteration;
 	}
 	public void setSpeed(float speed) {
 		threadDelay=(int) (maxThreadDelay/speed);
