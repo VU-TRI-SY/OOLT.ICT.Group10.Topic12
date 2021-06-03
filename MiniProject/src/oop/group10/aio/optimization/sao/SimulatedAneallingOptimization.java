@@ -111,6 +111,7 @@ public class SimulatedAneallingOptimization extends OptimizationForTSP {
 			GraphicsContext graphicsContext=canvas.getGraphicsContext2D();
 			graphicsContext.setFill(Color.WHITE);
 			graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			graphicsContext.setLineWidth(2.0);
 			graphicsContext.setStroke(Color.BLUE);
 			int i;
 			for(i=0;i<problem.getNumberOfCities()-1;i++) {
