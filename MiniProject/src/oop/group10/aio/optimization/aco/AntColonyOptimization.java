@@ -27,6 +27,8 @@ public class AntColonyOptimization extends OptimizationForTSP {
 	private PheromonesGraph graph;
 	//List of ants
 	private ArrayList<Ant> ants;
+	//Best of current tour
+	private float bestOfCurrentTour;
 	
 	
 	public AntColonyOptimization(TravelingSalesmanProblem problem, Controller controller) {
@@ -43,9 +45,11 @@ public class AntColonyOptimization extends OptimizationForTSP {
 	
 	private void init() {
 		// TODO Auto-generated method stub
+		alpha=1.0f;
+		beta=2.0f;
 		graph.reset(problem.getNumberOfCities());
 		currentIteration = 0;
-		numberOfIteration=1000;
+		numberOfIteration=500;
 		ants = new ArrayList<Ant>();
 		for(int i=0;i<numberOfAnts;i++) {
 			Ant ant = new Ant(i,this,operation);
@@ -92,6 +96,7 @@ public class AntColonyOptimization extends OptimizationForTSP {
 		// TODO Auto-generated method stub
 		updatePheromonesMap();
 		currentIteration++;
+		if(currentIteration==100) alpha*=3;
 	}
 	//Print solution
 	private void printSolution() {
@@ -106,8 +111,12 @@ public class AntColonyOptimization extends OptimizationForTSP {
 		if(globalBestValue > ants.get(i).getTourLength()) {
 			globalBest=ants.get(i).cloneTour();
 			globalBestValue=getProblem().evaluate(globalBest);
-			controller.setGlobalBest();
 		}
+		if(i==0) bestOfCurrentTour=ants.get(0).getTourLength();
+		else {
+			bestOfCurrentTour= (bestOfCurrentTour)>(ants.get(i).getTourLength())? (bestOfCurrentTour):(ants.get(i).getTourLength());
+		}
+		controller.setCurrentSolution(bestOfCurrentTour);
 	}
 	private void render() {
 		controller.changeProgress();
