@@ -11,6 +11,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -24,6 +26,9 @@ public class InputController implements Initializable {
 	
 	@FXML
     private Button finish;
+	
+	@FXML
+    private ImageView imageView;
 	
 	@FXML
     private Canvas canvas;
@@ -47,6 +52,7 @@ public class InputController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		imageView.setImage(new Image("asean.png"));
 		textField1.setText(0+"");
 		textField2.setText(0+"");
 		xPos=new ArrayList<>();

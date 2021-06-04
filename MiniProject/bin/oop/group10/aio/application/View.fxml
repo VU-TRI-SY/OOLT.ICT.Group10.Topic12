@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.group10.aio.application.Controller">
+   <left>
+      <StackPane BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imageView" fitHeight="500.0" fitWidth="600.0" opacity="0.66" pickOnBounds="true">
+               <image>
+                  <Image url="@../../../../../res/asean.png" />
+               </image>
+            </ImageView>
+            <Canvas fx:id="backgroundCanvas" height="500.0" width="600.0" />
+            <Canvas fx:id="canvas" height="500.0" width="600.0" />
+         </children>
+      </StackPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="806.0" prefWidth="241.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="textField" editable="false" focusTraversable="false" layoutX="87.0" layoutY="366.0" prefHeight="40.0" prefWidth="137.0" />
+            <Label fx:id="label" layoutX="6.0" layoutY="372.0" text="Distance" textFill="#aeb91a" />
+            <Button fx:id="button" layoutX="59.0" layoutY="4.0" mnemonicParsing="false" onAction="#startSolving" prefHeight="57.0" prefWidth="123.0" text="Start Visual" textFill="#001aff" />
+            <Button fx:id="stopButton" layoutX="148.0" layoutY="66.0" mnemonicParsing="false" onAction="#stopSolving" prefHeight="53.0" prefWidth="75.0" text="Stop" textFill="#f80909" />
+            <ProgressBar fx:id="progressBar" layoutX="17.0" layoutY="414.0" prefHeight="27.0" prefWidth="208.0" progress="0.0" />
+            <ChoiceBox fx:id="choiceBox" layoutX="15.0" layoutY="132.0" prefHeight="39.0" prefWidth="212.0" />
+            <Button fx:id="inputButton" layoutX="14.0" layoutY="65.0" mnemonicParsing="false" onAction="#switchToInputView" prefHeight="54.0" prefWidth="122.0" text="Input cities" textFill="#0fc950" />
+            <ProgressBar fx:id="temperatureBar" layoutX="67.0" layoutY="415.0" prefHeight="27.0" prefWidth="162.0" progress="0.0" visible="false" />
+            <Slider fx:id="speed" layoutX="64.0" layoutY="459.0" max="10.0" min="1.0" prefHeight="21.0" prefWidth="113.0" value="1.0" />
+            <TextField fx:id="speedField" layoutX="177.0" layoutY="450.0" prefHeight="39.0" prefWidth="48.0" />
+            <Text fx:id="textTemp" layoutX="16.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Temp:" visible="false" />
+            <Text fx:id="temperature" layoutX="127.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
+            <Text fill="#0a8fee" layoutX="6.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Speed" />
+            <AnchorPane layoutX="11.0" layoutY="176.0">
+               <children>
+                  <Text fx:id="wText" layoutX="36.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="W:" visible="false" />
+                  <Text fx:id="alphaText" layoutX="22.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alpha:" visible="false" />
+                  <Text fx:id="iterationText" layoutX="1.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Iteration:" visible="false" />
+                  <Text fx:id="betaText" layoutX="27.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Beta:" visible="false" />
+                  <Text fx:id="individualText" layoutX="2.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number:" visible="false" />
+                  <Text fx:id="rhoText" layoutX="29.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rho:" visible="false" />
+                  <Text fx:id="probabilityText" layoutX="1.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accept Probability:" visible="false" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="82.5" layoutY="179.0">
+               <children>
+                  <Slider fx:id="individualSlider" blockIncrement="300.0" layoutX="2.5" layoutY="1.0" max="200.0" min="2.0" prefHeight="21.0" prefWidth="98.0" visible="false" />
+                  <Slider fx:id="alphaSlider" blockIncrement="5.0" layoutX="4.5" layoutY="77.0" max="5.0" prefHeight="21.0" prefWidth="98.0" visible="false" />
+                  <Slider fx:id="rhoSlider" blockIncrement="1.0" layoutX="2.5" layoutY="155.0" max="1.0" prefHeight="21.0" prefWidth="98.0" visible="false" />
+                  <Slider fx:id="betaSlider" blockIncrement="5.0" layoutX="2.5" layoutY="116.0" max="5.0" prefHeight="21.0" prefWidth="98.0" visible="false" />
+                  <Slider fx:id="wSlider" blockIncrement="1.0" layoutX="2.5" layoutY="155.0" max="1.0" prefHeight="21.0" prefWidth="98.0" visible="false" />
+                  <Slider fx:id="iterationSlider" blockIncrement="1000.0" layoutX="2.5" layoutY="38.0" max="1000.0" min="1.0" prefHeight="21.0" prefWidth="98.0" visible="false" />
+                  <TextField fx:id="probabilityValue" layoutX="79.0" layoutY="97.0" prefHeight="39.0" prefWidth="85.0" visible="false" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="184.0" layoutY="170.0">
+               <children>
+                  <TextField fx:id="alphaValue" editable="false" layoutX="2.0" layoutY="77.0" prefHeight="39.0" prefWidth="60.0" visible="false" />
+                  <TextField fx:id="individualValue" editable="false" prefHeight="39.0" prefWidth="60.0" visible="false" />
+                  <TextField fx:id="wValue" layoutX="1.0" layoutY="155.0" prefHeight="39.0" prefWidth="60.0" visible="false" />
+                  <TextField fx:id="betaValue" editable="false" layoutX="1.0" layoutY="116.0" prefHeight="39.0" prefWidth="60.0" visible="false" />
+                  <TextField fx:id="iterationValue" editable="false" layoutX="1.0" layoutY="38.0" prefHeight="39.0" prefWidth="60.0" visible="false" />
+                  <TextField fx:id="rhoValue" editable="false" layoutX="1.0" layoutY="155.0" prefHeight="39.0" prefWidth="58.0" visible="false" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>
