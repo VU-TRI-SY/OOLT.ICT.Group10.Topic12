@@ -22,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -147,6 +148,7 @@ public class Controller implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		imageView.setImage(new Image("asean.png"));
 		//Bind
 		iterationValue.textProperty().bind(iterationSlider.valueProperty().asString("%.0f"));
 		alphaValue.textProperty().bind(alphaSlider.valueProperty().asString("%.1f"));
